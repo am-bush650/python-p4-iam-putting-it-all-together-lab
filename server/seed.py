@@ -41,6 +41,7 @@ with app.app_context():
         users.append(user)
 
     db.session.add_all(users)
+    db.session.commit()
 
     print("Creating recipes...")
     recipes = []
@@ -51,9 +52,8 @@ with app.app_context():
             title=fake.sentence(),
             instructions=instructions,
             minutes_to_complete=randint(15,90),
+            user_id=rc(users).id
         )
-
-        recipe.user = rc(users)
 
         recipes.append(recipe)
 
